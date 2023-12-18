@@ -60,7 +60,7 @@ const Account = ({ user, setUser, setToken, setAuthenticated }) => {
                 }
             );
 
-            // After returning the book, refresh the list of checked out books
+            
             const response = await axios.get(
                 'https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations',
                 {

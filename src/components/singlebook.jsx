@@ -25,7 +25,7 @@ const SingleBook = ({ books, setBooks }) => {
                 }
             );
 
-            // Optionally update the local books state or handle the response
+            
             const updatedBooks = books.map(b =>
                 b.id === parseInt(id) ? { ...b, available: false } : b
             );
