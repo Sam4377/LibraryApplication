@@ -1,10 +1,10 @@
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from 'axios';
+import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
+import axios from 'axios'
 
 const Account = ({ user, setUser, setToken, setAuthenticated }) => {
-    const navigate = useNavigate();
-    const [checkedOutBooks, setCheckedOutBooks] = useState([]);
+    const navigate = useNavigate()
+    const [checkedOutBooks, setCheckedOutBooks] = useState([])
 
     const logout = () => {
         window.localStorage.removeItem('token');
@@ -12,14 +12,14 @@ const Account = ({ user, setUser, setToken, setAuthenticated }) => {
         setUser({});
         setAuthenticated(false);
         navigate('/');
-    };
+    }
 
     useEffect(() => {
         const fetchCheckedOutBooks = async () => {
             try {
-                const loggedInToken = window.localStorage.getItem('token');
+                const loggedInToken = window.localStorage.getItem('token')
                 if (!loggedInToken) {
-                    throw new Error('No token found');
+                    throw new Error('No token found')
                 }
 
                 const response = await axios.get(
@@ -30,23 +30,23 @@ const Account = ({ user, setUser, setToken, setAuthenticated }) => {
                             'Content-Type': 'application/json'
                         }
                     }
-                );
+                )
                     
-                setCheckedOutBooks(response.data.BoundFunctionObject || []);
+                setCheckedOutBooks(response.data.BoundFunctionObject || [])
                 console.log(setCheckedOutBooks)
             } catch (error) {
-                console.error('Error fetching checked out books:', error);
+                console.error('Error fetching checked out books:', error)
             }
-        };
+        }
 
-        fetchCheckedOutBooks();
-    }, []);
+        fetchCheckedOutBooks()
+    }, [])
 
     const handleReturnBook = async (bookId) => {
         try {
-            const loggedInToken = window.localStorage.getItem('token');
+            const loggedInToken = window.localStorage.getItem('token')
             if (!loggedInToken) {
-                throw new Error('No token found');
+                throw new Error('No token found')
             }
 
             await axios.patch(
@@ -58,7 +58,7 @@ const Account = ({ user, setUser, setToken, setAuthenticated }) => {
                         'Content-Type': 'application/json'
                     }
                 }
-            );
+            )
 
             
             const response = await axios.get(
@@ -68,15 +68,15 @@ const Account = ({ user, setUser, setToken, setAuthenticated }) => {
                         Authorization: `Bearer ${loggedInToken}`
                     }
                 }
-            );
-            setCheckedOutBooks(response.data || []);
+            )
+            setCheckedOutBooks(response.data || [])
         } catch (error) {
-            console.error('Error returning book:', error);
+            console.error('Error returning book:', error)
         }
-    };
+    }
 
     if (!user.books) {
-        return null;
+        return null
     }
 
     return (
@@ -96,7 +96,7 @@ const Account = ({ user, setUser, setToken, setAuthenticated }) => {
                 ))}
             </ul>
         </div>
-    );
-};
+    )
+}
 
-export default Account;
+export default Account

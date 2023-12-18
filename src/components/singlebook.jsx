@@ -1,10 +1,10 @@
-import React from "react";
-import { useParams, Link } from "react-router-dom";
-import axios from 'axios';
+import React from "react"
+import { useParams, Link } from "react-router-dom"
+import axios from 'axios'
 
 const SingleBook = ({ books, setBooks }) => {
-    const { id } = useParams();
-    const book = books.find((book) => book.id === parseInt(id));
+    const { id } = useParams()
+    const book = books.find((book) => book.id === parseInt(id))
 
     const handleCheckout = async () => {
         try {
@@ -23,17 +23,17 @@ const SingleBook = ({ books, setBooks }) => {
                         'Content-Type': 'application/json'
                     }
                 }
-            );
+            )
 
             
             const updatedBooks = books.map(b =>
                 b.id === parseInt(id) ? { ...b, available: false } : b
-            );
-            setBooks(updatedBooks);
+            )
+            setBooks(updatedBooks)
         } catch (error) {
             console.error('Error during checkout:', error);
         }
-    };
+    }
 
     return (
         <div>
@@ -46,7 +46,7 @@ const SingleBook = ({ books, setBooks }) => {
                 <button>Back</button>
             </Link>
         </div>
-    );
+    )
 }
 
 export default SingleBook;
